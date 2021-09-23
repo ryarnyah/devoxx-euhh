@@ -90,4 +90,6 @@ async function init() {
     // setTimeout(() => recognizer.stopListening(), 5000);
 }
 
-init()
+tf.setBackend('wasm').then(() => init());
+
+//init()

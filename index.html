@@ -77,8 +77,6 @@
 		<script src="plugin/markdown/markdown.js"></script>
 		
 		-->
-		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.9.0/dist/tf.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.5.4/dist/speech-commands.min.js"></script>
 
 		<script>
 			// More info about initialization & config:
@@ -92,6 +90,13 @@
 			});
 		</script>
 
+		<!-- Import @tensorflow/tfjs or @tensorflow/tfjs-core -->
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands"></script>
+		
+		<!-- Adds the WAsm backend to the global backend registry -->
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm/dist/tf-backend-wasm.js"></script>
+		
 		<script src="js/ml.js"></script>
 	</body>
 </html>

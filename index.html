@@ -45,11 +45,11 @@
 					<h1>Euuhh</h1>
 				</section>
 				<section>
-					<h2>Qui sommes nous</h2>
+					<h3>Qui sommes nous</h3>
 					<table class="small">
 						<tbody>
 							<tr>
-								<td></td>
+								<td>TODO image Pierre</td>
 								<td><img src="images/louis_znk.jpg" class="img-rounded aligncenter"/></td>
 							</tr>
 							<tr>
@@ -60,9 +60,111 @@
 					</table>
 					<br>
 					🔥 nos domaines c’est le dev Back, le “DevOps”, pas l’IA…. (ni le dev Front) 🔥
-
 				</section>
-				<section>Slide 3</section>
+				<section>
+					<h3>Et on a pas vocation de faire ...</h3>
+					<img src="images/tesla.gif"/>
+				</section>
+				<!-- -->
+				<section>
+					<h3>Teachable & under the hood => Keras/Tensorflow</h3>
+					<table>
+						<tbody>
+							<tr>
+								<td width="55%">
+									<video>
+										<source data-src="images/euuh.mp4" type="video/mp4" />
+									</video>
+								</td>
+								<td width="45%">
+									<img src="images/code-tensor.png"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<!-- -->
+				<section>
+					<h2>Zoom sur les réseaux de neurones</h2>
+				</section>
+				<section>
+					<h3>Principes réseaux de neurones</h3>
+					<img src="images/reconnaissance-banane.png"/>
+				</section>
+				<section>
+					<h3>Principes réseaux de neurones</h3>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<img src="images/neurone-biologique.png" />
+								</td>
+								<td>
+									<img src="images/neurone-artificiel.png" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
+					<h3>L'entraînement & backpropagation</h3>
+					<img src="images/training-in-progress.gif"/>
+				</section>
+				<!-- -->
+				<section>
+					<h2>La voix dans ce modèle</h2>
+				</section>
+				<section>
+					<h3>Voix, sa représentation et pourquoi</h3>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<img src="images/voix-01.png"/>
+									</td>
+									<td>
+										<img src="images/voix-02.png" class="fragment"/>
+									</td>
+									<td>
+										<img src="images/voix-03.png" class="fragment"/>
+									</td>
+									<td>
+										<img src="images/voix-04.png" class="fragment"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+				</section>
+				<section>
+					<h3>Explication du flux de traitement</h3>
+					TODO
+				</section>
+				<!-- -->
+				<section>
+					<h2>Du “euhh” entendu à 🐮, c'est 🤪 time</h2>
+				</section>
+				<section>
+					<h3>TODO tensorflow dans revealjs</h3>
+					TODO
+				</section>
+				<section>
+					<h3>Et intégré à votre webcam</h3>
+					TODO
+				</section>
+				<!-- -->
+				<section>
+					<h2>🙏 ❓</h2>
+				</section>
+				<section>
+					<h3>Références</h3>
+					<ul>
+						<li>Exemple classification audio avec keras </br> https://www.tensorflow.org/tutorials/audio/simple_audio</li>
+						<li>Repos du code </br> TODO </li>
+						<li>Backpropagation </br> https://www.youtube.com/watch?v=Ilg3gGewQ5U</li>
+						<li>TeachableMachine </br> https://teachablemachine.withgoogle.com/</li>
+						<li>OBS / MachineLearning </br> https://thecodingtrain.com/CodingChallenges/157-zoom-annotations.html</li>
+					</ul>
+				</section>
 			</div>
 			<div class="footer">
 				<div id="label-container" style="text-align:center"></div>
@@ -84,6 +186,18 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+				autoPlayMedia: true,
+
+				width: 1400,
+				height: 800,
+
+				// Factor of the display size that should remain empty around
+				// the content
+				margin: 0.04,
+
+				// Bounds for smallest/largest possible scale to apply to content
+				minScale: 0.2,
+				maxScale: 2.0,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealHighlight, RevealNotes ]

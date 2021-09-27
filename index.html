@@ -34,8 +34,29 @@
 			.reveal table th, .reveal table td {
 				border-bottom: none;
 			}
-
+			.grip-container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-auto-rows: minmax(100px, auto);
+			}
+			.one {
+			grid-column: 1 / 3;
+			grid-row: 1;
+			}
+			.two {
+			grid-column: 3 / 4;
+			grid-row: 1;
+			}
+			.three {
+			grid-column: 3 ;
+			grid-row: 2 ;
+			}
+			.four {
+			grid-column: 2;
+			grid-row: 3;
+			}
 		
+
 		</style>
 	</head>
 	<body>
@@ -137,19 +158,36 @@
 				</section>
 				<section>
 					<h3>Explication du flux de traitement</h3>
-					TODO
+					<div class="grip-container">
+						<div class="one"><img src="images/flux_01.png"/></div>
+						<div class="two"><img src="images/flux_02.png" class="fragment"/></div>
+						<div class="three"><img src="images/flux_03.png" class="fragment"/></div>
+						<div class="four"><img src="images/flux_04.png" width="50%" class="fragment"/></div>
+					</div>
 				</section>
 				<!-- -->
 				<section>
 					<h2>Du “euhh” entendu à 🐮, c'est 🤪 time</h2>
 				</section>
 				<section>
-					<h3>TODO tensorflow dans revealjs</h3>
-					TODO
+					<h3>Pour la présentation Tensorflow dans revealjs</h3>
+					TODO décrire l'intégration dans revealjs
 				</section>
 				<section>
-					<h3>Et intégré à votre webcam</h3>
-					TODO
+					<h3>Et pour le remote : Tensorflow intégré a sa webcam avec OBS</h3>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<img src="images/pierre_euhh.gif"/>
+								</td>
+								<td>
+									<img src="images/louis_euhh.gif"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
 				</section>
 				<!-- -->
 				<section>

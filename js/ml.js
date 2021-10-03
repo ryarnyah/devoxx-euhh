@@ -30,26 +30,23 @@ async function init() {
     const recognizer = await createModel();
     const classLabels = recognizer.wordLabels(); // get class labels
     const labelContainer = document.getElementById("label-container");
-    const scoreContainer = document.getElementById("score-container");
     for (let i = 0; i < classLabels.length; i++) {
         labelContainer.appendChild(document.createElement("div"));
-        scoreContainer.appendChild(document.createElement("div"));
-        nbs[i] = 0
-        labelContainer.childNodes[0].innerHTML = "initialized"
+        nbs[i] = 0;
     }
 
 
     // listen() takes two arguments:
     // 1. A callback function that is invoked anytime a word is recognized.
     // 2. A configuration object with adjustable fields
-    const last = []
+    const last = [];
     recognizer.listen(result => {
 
         const scores = result.scores; // probability of prediction for each class
         // render the probability scores per class
         for (let i = 0; i < classLabels.length; i++) {
-            const label = classLabels[i]
-            const score = scores[i].toFixed(2)
+            const label = classLabels[i];
+            const score = scores[i].toFixed(2);
             /*
             const classPrediction = label + ": " + score;
             labelContainer.childNodes[i].innerHTML = classPrediction;
@@ -63,21 +60,26 @@ async function init() {
                     // } else if (label == "Yolo") {
                     //     ++nbYolo
                     // }
-                    nbs[i] = nbs[i] + 1
-                    last[i] = label
+                    nbs[i] = nbs[i] + 1;
+                    last[i] = label;
 
-                    const classScore = label + ": " + nbs[i];
-                    scoreContainer.childNodes[i].innerHTML = classScore;
-
-                    if(label === "Euuh") {                        
-                        labelContainer.childNodes[0].innerHTML = "<h1>🐮</h1>"
+                    if(label === "Euuh") {
+                        labelContainer.className = 'show';
+                        labelContainer.childNodes[0].innerHTML = "<h1>🐮</h1>";
                     } else if (label == "Yolo") {
-                        labelContainer.childNodes[0].innerHTML = "<h1>🤪</h1>"
+                        labelContainer.className = 'show';
+                        labelContainer.childNodes[0].innerHTML = "<h1>🤪</h1>";
+                    }
+                    if (labelContainer.className == 'show') {
+                        setTimeout(function() {
+                            labelContainer.className = 'hide';
+                        }, 1000);
                     }
                 }
             } else {
-                last[i] = ""
+                last[i] = "";
             }
+            document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
         }
     }, {
         includeSpectrogram: false, // in case listen should return result.spectrogram

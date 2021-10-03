@@ -64,7 +64,7 @@ async function init() {
             if (labelContainer.className == 'show') {
                 setTimeout(function() {
                     labelContainer.className = 'hide';
-                }, 2000);
+                }, MIN_TIME_BEETWEEN_MS);
             }
             document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
         }

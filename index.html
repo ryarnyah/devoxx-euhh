@@ -20,9 +20,13 @@
          background-repeat: no-repeat;
      }
 
+     .avatar {
+         min-width: 7em;
+     }
+
 			.reveal .footer {
 				position: absolute;
-				up: 1em;
+				top: 1em;
 				right: 1em;
 				font-size: 0.5em;
 			}
@@ -61,6 +65,14 @@
 			grid-column: 2;
 			grid-row: 3;
 			}
+     .hide {
+         display: none;
+         visibility: hidden;
+     }
+     .show {
+         display: block;
+         visibility: visible;
+     }
 		</style>
 	</head>
 	<body>
@@ -73,9 +85,9 @@
 					<h3>Qui sommes nous</h3>
 					<table class="small">
 						<tbody>
-							<tr>
-								<td>TODO image Pierre</td>
-								<td><img src="images/louis_znk.jpg" class="img-rounded aligncenter"/></td>
+							  <tr>
+								    <td><img src="images/pierre_znk.jpg" class="img-rounded aligncenter avatar" /></td>
+								<td><img src="images/louis_znk.jpg" class="img-rounded aligncenter avatar"/></td>
 							</tr>
 							<tr>
 								<td>Pierre Morvan <br>@ Zenika Paris</td>
@@ -193,6 +205,10 @@
 					</table>
 
 				</section>
+        <section>
+            <h3>Lors de présentation</h3>
+            <div id="score-container-final"></div>
+        </section>
 				<!-- -->
 				<section>
 					<h2>🙏 ❓</h2>
@@ -209,8 +225,7 @@
 				</section>
 			</div>
 			<div class="footer">
-				<div id="label-container" style="text-align:center"></div>
-				<div id="score-container"></div>
+				  <div id="label-container" class="hide" style="text-align:center"></div>
 			</div>
 		</div>
 

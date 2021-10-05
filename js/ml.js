@@ -4,11 +4,13 @@ import * as tf from '../../node_modules/@tensorflow/tfjs';
 import * as speechCommands from '../../@node_modulestensorflow-models/speech-commands';
 */
 // https://teachablemachine.withgoogle.com/models/TZrro9spJ/
-const URL = window.location.protocol + '//' + window.location.host + '/model/'
-const MIN = 0.66
+const URL = window.location.protocol + '//' + window.location.host + '/model/';
 const nbs = [];
-// let nbEuh = 0
-// let nbYolo = 0
+
+const SPECTRORAM_TIME_MS = 1000;
+const MIN_TIME_BEETWEEN_MS = 600;
+const OVERLAP_FACTOR = MIN_TIME_BEETWEEN_MS * 1.0 / SPECTRORAM_TIME_MS;
+const PROBABILITY_THRESHOLD = 0.9;
 
 async function createModel() {
     const checkpointURL = URL + "model.json"; // model topology
@@ -34,58 +36,45 @@ async function init() {
         labelContainer.appendChild(document.createElement("div"));
         nbs[i] = 0;
     }
-
+    document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
 
     // listen() takes two arguments:
     // 1. A callback function that is invoked anytime a word is recognized.
     // 2. A configuration object with adjustable fields
-    const last = [];
+    let last = Date.now();
+    let lastLabel = "";
     recognizer.listen(result => {
 
         const scores = result.scores; // probability of prediction for each class
-        // render the probability scores per class
-        for (let i = 0; i < classLabels.length; i++) {
-            const label = classLabels[i];
-            const score = scores[i].toFixed(2);
-            /*
-            const classPrediction = label + ": " + score;
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-            */
-            // on compte pas la classe de base
-            if (i > 0 && score >= MIN) {
-                // il faut qu'il y ait une rupture dans la voix (sinon un euhhh long compte plusieurs fois)
-                if (last[i] != label) {
-                    // if (label === "Euuh") {
-                    //     ++nbEuh                        
-                    // } else if (label == "Yolo") {
-                    //     ++nbYolo
-                    // }
-                    nbs[i] = nbs[i] + 1;
-                    last[i] = label;
+        
+        const index = scores.indexOf(Math.max.apply(Math, scores));
+        const label = classLabels[index];
 
-                    if(label === "Euuh") {
-                        labelContainer.className = 'show';
-                        labelContainer.childNodes[0].innerHTML = "<h1>🐮</h1>";
-                    } else if (label == "Yolo") {
-                        labelContainer.className = 'show';
-                        labelContainer.childNodes[0].innerHTML = "<h1>🤪</h1>";
-                    }
-                    if (labelContainer.className == 'show') {
-                        setTimeout(function() {
-                            labelContainer.className = 'hide';
-                        }, 1000);
-                    }
-                }
-            } else {
-                last[i] = "";
+        if (lastLabel != label || (last + MIN_TIME_BEETWEEN_MS * 2) < Date.now()) {
+            if(label === "Euuh") {
+                labelContainer.className = 'show';
+                labelContainer.childNodes[0].innerHTML = "<h1>🐮</h1>";
+            } else if (label === "Yolo") {
+                labelContainer.className = 'show';
+                labelContainer.childNodes[0].innerHTML = "<h1>🤪</h1>";
+            } else if (label === "Next") {
+                Reveal.next();
+            }
+            nbs[index]++;
+            if (labelContainer.className == 'show') {
+                setTimeout(function() {
+                    labelContainer.className = 'hide';
+                }, MIN_TIME_BEETWEEN_MS);
             }
             document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
         }
+        last = Date.now();
+        lastLabel = label;
     }, {
         includeSpectrogram: false, // in case listen should return result.spectrogram
-        probabilityThreshold: 0.70, // (0.75)
+        probabilityThreshold: PROBABILITY_THRESHOLD, // (0.75)
         invokeCallbackOnNoiseAndUnknown: true,
-        overlapFactor: 0.60 // (0.5) probably want between 0.5 and 0.75. More info in README
+        overlapFactor: OVERLAP_FACTOR // (0.5) probably want between 0.5 and 0.75. More info in README
     });
 
     // Stop the recognition in 5 seconds.

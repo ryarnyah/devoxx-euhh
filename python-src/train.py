@@ -5,8 +5,7 @@ import random
 
 import librosa
 import numpy as np
-from scipy import signal
-from scipy.io import wavfile
+import soundfile as sf
 import tensorflow as tf
 import tensorflowjs as tfjs
 import tqdm
@@ -31,7 +30,7 @@ EXPECTED_WAVEFORM_LEN = preproc_model.input_shape[-1]
 # Where the Speech Commands v0.02 dataset has been downloaded.
 DATA_ROOT = "final-data"
 
-WORDS = ("_background_noise_", "Euuh", "Yolo")
+WORDS = ("_background_noise_", "Euuh", "Yolo", "Next")
 
 def resample_wavs(dir_path, target_sample_rate=44100):
   wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
@@ -39,31 +38,35 @@ def resample_wavs(dir_path, target_sample_rate=44100):
   for i, wav_path in tqdm.tqdm(enumerate(wav_paths)):
     if wav_path.endswith(resampled_suffix) or 'split' not in wav_path:
       continue
-    sample_rate, xs = wavfile.read(wav_path)
-    xs = xs.astype(np.float32)
-    xs = librosa.resample(xs, sample_rate, TARGET_SAMPLE_RATE).astype(np.int16)
+    xs, sample_rate = librosa.load(wav_path, None)
+    #xs = xs.astype(np.float32)
+    xs = librosa.resample(xs, sample_rate, TARGET_SAMPLE_RATE)#.astype(np.int16)
     resampled_path = os.path.splitext(wav_path)[0] + resampled_suffix
-    wavfile.write(resampled_path, target_sample_rate, xs)
+    sf.write(resampled_path, xs, target_sample_rate)
 
 
 def add_noise(dir_path):
   wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
   for i, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+    if 'noise' in wav_path:
+      continue
     if 'data_aug' in wav_path or 'hz.wav' in wav_path:
       continue
-    rate, wav = wavfile.read(wav_path)
+    wav, rate = librosa.load(wav_path, None)
     wav_n = wav + 0.009 * np.random.normal(0, 1, len(wav))
-    wavfile.write(wav_path + '-data_aug_noise.wav', rate, wav_n)
+    sf.write(wav_path + '-data_aug_noise.wav', wav_n, rate)
 
 
 def timeshift(dir_path):
   wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
   for i, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+    if 'timeshift' in wav_path:
+      continue
     if 'data_aug' in wav_path or 'hz.wav' in wav_path:
       continue
-    rate, wav = wavfile.read(wav_path)
+    wav, rate = librosa.load(wav_path, None)
     wav_n = np.roll(wav, int(rate / 10))
-    wavfile.write(wav_path + '-data_aug-timeshift.wav', rate, wav_n)
+    sf.write(wav_path + '-data_aug-timeshift.wav', wav_n, rate)
 
 
 def split_to_time(dir_path):
@@ -71,10 +74,11 @@ def split_to_time(dir_path):
   for wav in wav_paths:
     if 'split' in wav:
       continue
-    rate, data = wavfile.read(wav)
+    data, rate = librosa.load(wav, None)
     batches = int(len(data) / (TARGET_SAMPLE_TIME * rate))
     for i in range(batches):
-      wavfile.write(wav + '-data_aug-split' + '-' + str(i) + '.wav', rate, data[i * rate: (i+1) * rate])
+      sf.write(wav + '-split' + '-' + str(i) + '.wav', data[i * rate: (i+1) * rate], rate)
+
 
 @tf.function
 def read_wav(filepath):
@@ -120,9 +124,9 @@ for word in WORDS:
   assert os.path.isdir(word_dir)
   # data augmentation
   print('data augmentation for %s' % word)
+  split_to_time(word_dir)
   add_noise(word_dir)
   timeshift(word_dir)
-  split_to_time(word_dir)
   resample_wavs(word_dir, target_sample_rate=TARGET_SAMPLE_RATE)
 
 input_wav_paths_and_labels = []
@@ -148,7 +152,6 @@ print(
 xs_and_ys = list(dataset)
 xs = np.stack([item[0] for item in xs_and_ys])
 ys = np.stack([item[1] for item in xs_and_ys])
-print("Done.")
 
 tfjs_model_json_path = 'tfjs-sc-model/model.json'
 

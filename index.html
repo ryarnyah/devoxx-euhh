@@ -14,17 +14,15 @@
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
 
 		<style>
-     html, body, .reveal {
-         background-image: url(images/slide-background.png);
-         background-size: auto 100%;
-         background-repeat: no-repeat;
-     }
-
-     .avatar {
-         min-width: 7em;
-     }
-
-			.reveal .footer {
+			body, .reveal {
+				background-image: url(images/slide-background-znk-devfest.png);
+				background-size: auto 100%;
+				background-repeat: no-repeat;
+			}
+			.avatar {
+				min-width: 7em;
+			}
+			.reveal .header-tf {
 				position: absolute;
 				top: 1em;
 				right: 1em;
@@ -45,25 +43,25 @@
 				border-bottom: none;
 			}
 			.grip-container {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			grid-auto-rows: minmax(100px, auto);
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				grid-auto-rows: minmax(100px, auto);
 			}
 			.one {
-			grid-column: 1 / 3;
-			grid-row: 1;
+				grid-column: 1 / 3;
+				grid-row: 1;
 			}
 			.two {
-			grid-column: 3 / 4;
-			grid-row: 1;
+				grid-column: 3 / 4;
+				grid-row: 1;
 			}
 			.three {
-			grid-column: 3 ;
-			grid-row: 2 ;
+				grid-column: 3 ;
+				grid-row: 2 ;
 			}
 			.four {
-			grid-column: 2;
-			grid-row: 3;
+				grid-column: 2;
+				grid-row: 3;
 			}
      .hide {
          display: none;
@@ -77,6 +75,9 @@
 	</head>
 	<body>
 		<div class="reveal">
+			<div class="header-tf">
+				<div id="label-container" style="text-align:center"></div>
+			</div>
 			<div class="slides">
 				<section>
 					<h1>Euuhh</h1>
@@ -85,8 +86,8 @@
 					<h3>Qui sommes nous</h3>
 					<table class="small">
 						<tbody>
-							  <tr>
-								    <td><img src="images/pierre_znk.jpg" class="img-rounded aligncenter avatar" /></td>
+							<tr>
+								<td><img src="images/pierre_znk.jpg" class="img-rounded aligncenter avatar" /></td>
 								<td><img src="images/louis_znk.jpg" class="img-rounded aligncenter avatar"/></td>
 							</tr>
 							<tr>
@@ -178,7 +179,9 @@
 						<div class="one"><img src="images/flux_01.png"/></div>
 						<div class="two"><img src="images/flux_02.png" class="fragment"/></div>
 						<div class="three"><img src="images/flux_03.png" class="fragment"/></div>
+						<!--
 						<div class="four"><img src="images/flux_04.png" width="50%" class="fragment"/></div>
+						-->
 					</div>
 				</section>
 				<!-- -->
@@ -186,29 +189,114 @@
 					<h2>Du “euhh” entendu à 🐮, c'est 🤪 time</h2>
 				</section>
 				<section>
-					<h3>Pour la présentation Tensorflow dans revealjs</h3>
-					TODO décrire l'intégration dans revealjs
+					<section>
+						<h3>Une présentation avec Tensorflow</h3>
+						<ul>
+							<li>revealjs pour les slides au format web</li>
+							<li>tensorflow.js pour utiliser le modèle généré</li>
+							<li>et un peu de html et javascript pour lié cela</li>
+						</ul>
+					</section>
+					<section>
+						<h3>L'intégration de Tensorflow.js</h3>
+						<pre>
+							<code data-line-numbers="35|17-18|2-14|19-30">
+								<script type="text/template">
+					async function createModel() {
+						const recognizer = speechCommands.create(
+							"BROWSER_FFT", // fourier transform type, not useful to change
+							undefined, // speech commands vocabulary feature, not useful for your models
+							checkpointURL,
+							metadataURL);
+					
+						// check that model and metadata are loaded via HTTPS requests.
+						await recognizer.ensureModelLoaded();
+					
+						// ..
+					
+						return recognizer;
+					}
+					
+					async function init() {
+						const recognizer = await createModel();
+						const labelContainer = document.getElementById("label-container");
+						const classLabels = recognizer.wordLabels(); // get class labels
+						recognizer.listen(result => {
+					
+					        const scores = result.scores; // probability of prediction for each class
+					        // render the probability scores per class
+					        for (let i = 0; i < classLabels.length; i++) {
+					            const label = classLabels[i]
+					            const score = scores[i].toFixed(2)
+								// modify labelContainer
+								//...
+							}
+						}
+						
+					}
+					
+					tf.setBackend('wasm').then(() => init());
+													</script>
+												</code>
+											</pre>
+					</section>
+					<section>
+						<h3>L'ajout du "header" dans revealjs</h3>
+						<pre>
+							<code data-line-numbers="4-6|10-12|13-16">
+								<script type="text/template">
+									<head>
+										<style>										
+											.reveal .header-tf {
+												position: absolute; top: 1em; right: 1em;
+											}
+										</style>
+									</head>
+									<body>
+										<div class="header-tf">
+											<div id="label-container" style="text-align:center"/>
+										</div>
+										<div class="slides">
+											<section><h1>Slide 1</h1></section>
+											<section><h1>Slide 2</h1></section>
+										</div>
+									</body>
+								</script>
+							</code>
+						</pre>
+					</section>
 				</section>
 				<section>
-					<h3>Et pour le remote : Tensorflow intégré a sa webcam avec OBS</h3>
-					<table>
-						<tbody>
-							<tr>
-								<td>
-									<img src="images/pierre_euhh.gif"/>
-								</td>
-								<td>
-									<img src="images/louis_euhh.gif"/>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-
+					<section>
+						<h3>La version pour le remote</h3>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<img src="images/pierre_euhh.gif"/>
+									</td>
+									<td>
+										<img src="images/louis_euhh.gif"/>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</section>
+					<section>
+						<h3>Principes</h3>
+						<img src="images/schema-obs.png"/>
+					</section>
+					<section>
+						<h3>Implémentation</h3>
+						<img src="images/implementation-obs.png" />
+					</section>
 				</section>
-        <section>
-            <h3>Lors de présentation</h3>
-            <div id="score-container-final"></div>
-        </section>
+				<section>
+					<h3>Durant de cette présentation</h3>
+					<div id="score-container-final"></div>
+					<br/>
+					Aucun animal et aucun émoji n'ont été maltraités 💚
+				</section>
 				<!-- -->
 				<section>
 					<h2>🙏 ❓</h2>
@@ -223,9 +311,6 @@
 						<li>OBS / MachineLearning </br> https://thecodingtrain.com/CodingChallenges/157-zoom-annotations.html</li>
 					</ul>
 				</section>
-			</div>
-			<div class="footer">
-				  <div id="label-container" class="hide" style="text-align:center"></div>
 			</div>
 		</div>
 
@@ -255,6 +340,10 @@
 				// Bounds for smallest/largest possible scale to apply to content
 				minScale: 0.2,
 				maxScale: 2.0,
+				
+				// pdf all fragments in the same page
+				pdfSeparateFragments: false,
+				pdfMaxPagesPerSlide: 1,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealHighlight, RevealNotes ]

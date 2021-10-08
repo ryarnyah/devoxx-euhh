@@ -4,7 +4,7 @@ import * as tf from '../../node_modules/@tensorflow/tfjs';
 import * as speechCommands from '../../@node_modulestensorflow-models/speech-commands';
 */
 // https://teachablemachine.withgoogle.com/models/TZrro9spJ/
-const URL = window.location.protocol + '//' + window.location.host + '/model/';
+const URL = window.location.protocol + '//' + window.location.host + (window.location.pathname === '/' ? '' : window.location.pathname) + '/model/';
 const nbs = [];
 
 const SPECTRORAM_TIME_MS = 1000;

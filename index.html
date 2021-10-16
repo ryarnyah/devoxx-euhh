@@ -34,7 +34,7 @@
 			.reveal .img-rounded {
   				border-radius: 50%;
 			}
-			.reveal .aligncenter {				
+			.reveal .aligncenter {
 				margin: 10px auto 20px;
     			display: block;
 			}
@@ -98,10 +98,24 @@
 					</table>
 					<br>
 					🔥 nos domaines c’est le dev Back, le “DevOps”, pas l’IA…. (ni le dev Front) 🔥
+          <aside class="notes">
+              #blabla<br />
+              pour ceux qui nous connaissent, nos dommaines c'est le dev Back, le "DevOps", pas l'IA (ni le dev Front).
+          </aside>
 				</section>
 				<section>
-					<h3>Et on a pas vocation de faire ...</h3>
+			    <h3>Et on a pas vocation de faire ...</h3>
 					<img src="images/tesla.gif"/>
+          <aside class="notes">
+              <b>LOUIS</b><br />
+              Mais alors pourquoi un talk à propos d'IA?<br />
+              Et bien il y a quelques mois, Pierre et moi parlions des discours et des tics de langage, et du fait que n'ayant plus personne en présentiel nous manquions de feedback.<br />
+              A défaut de trouver une réponse à votre absence, nous nous sommes dit: "Et si nous utilisions un système de reconnaissance vocale pour nous signaler nos tics de langage ?"<br />
+              <b>PIERRE</b><br />
+              Vous imaginez bien que nous avons sauté sur l'idée pour en faire un abstrat, s'amuser, apprendre, prototyper et maintenant partager.<br />
+              C'est pour cela que nous allons vous parler de réseaux de neurones, de la "représentation" du son sous forme d'image et que nous aurons un (ou plusieurs) tics du langage qui viendra jouer les troubles-fêtes dans notre présentation.<br />
+              Comme c'est plus YOLO, nous utiliserons cette présentation en guise de démo. Nous allons commencé par vous présenter les outils que nous avons utilisé pour faire du machine learning.
+          </aside>
 				</section>
 				<!-- -->
 				<section>
@@ -120,14 +134,40 @@
 							</tr>
 						</tbody>
 					</table>
+          <aside class="notes">
+              <b>PIERRE</b><br />
+              2 approches, celles du "fainéant" et celle du fan d'emacs. De mon côté je suis pas trop clic-bouton et emacs est mon ami.<br />
+              -> Keras & Tensorflow<br />
+              <b>LOUIS</b><br />
+              Et moi ma librairie c'est Teachable Machine, c'est tout simple d'usage et cela marche du premier coup. En dessous? C'est encore du TensorFlow.<br />
+              Et tensorflow c'est quoi? Un librairie de ML utilisant des réseaux de neurones.
+          </aside>
+
 				</section>
 				<!-- -->
 				<section>
-					<h2>Zoom sur les réseaux de neurones</h2>
+				  <h2>Zoom sur les réseaux de neurones</h2>
+          <aside class="notes">
+              <b>LOUIS</b><br />
+              Prenons un peu le temps pour expliquer ce qu'est un réseau de neurones.
+          </aside>
 				</section>
 				<section>
 					<h3>Principes réseaux de neurones</h3>
 					<img src="images/reconnaissance-banane.png"/>
+          <aside class="notes">
+              <b>LOUIS</b><br />
+              Voici un exemple très grossier de reconnaissance de certains fruits.<br />
+              <br />
+              Nous avons différents composants que appellerons neurones.<br />
+              Chaque neurone va être spécialisé<br />
+              Il va recevoir une ou plusieures informations en entrée et va renvoyer une autre information ou pas d'information du tout.<br />
+              <br />
+              Dans notre exemple de la banane, une première couche de neurone spécialisé dans la couleur reçoit l'image de la banane, seul le neuronne jaune transmet un message aux neuronnes suivants.<br />
+              Puis les neuronnes de forme reçoivent ce même message avec seulement 2 neurones renvoient un autre message au système de classification.<br />
+              <br />
+              Le système de classification va à partir des messages reçu dire que cet objet de couleur jaune ayant la forme d'un demi-cercle et d'un triangle est une banane.
+          </aside>
 				</section>
 				<section>
 					<h3>Principes réseaux de neurones</h3>
@@ -143,14 +183,35 @@
 							</tr>
 						</tbody>
 					</table>
+          <aside class="notes">
+              <b>PIERRE</b><br />
+              Explication neurones bio vs art + fonction activation<br />
+              Poids sur les liaisons (entrainement)<br />
+              <br />
+              (dendrites/)synapse -> axione -> synapse<br />
+              X -> Y
+          </aside>
 				</section>
 				<section>
 					<h3>L'entraînement & backpropagation</h3>
 					<img src="images/training-in-progress.gif"/>
+          <aside class="notes">
+              <b>PIERRE</b><br />
+              1. Présentation schema<br />
+              <p>a. Representation classique d'un réseau neuronal</p>
+              <p>b. chaque couche (layer) composée de N neurones reliés entre eux</p>
+              2. Entrainement & Backpropagation<br />
+              <br />
+              <b>[suite PIERRE] -></b>La voix dans ce modèle
+          </aside>
 				</section>
 				<!-- -->
 				<section>
 					<h2>La voix dans ce modèle</h2>
+          <aside class="notes">
+              <b>PIERRE</b><br />
+              Et maintenant nous allons vous présenter la representation de la voix.
+          </aside>
 				</section>
 				<section>
 					<h3>Voix, sa représentation et pourquoi</h3>
@@ -172,6 +233,12 @@
 								</tr>
 							</tbody>
 						</table>
+            <aside class="notes">
+                <b>PIERRE</b><br />
+                Représentation signal<br />
+                Spectrogramme (transformée de Fourier)<br />
+                (Utilise un) Modèle existant sur la reconnaissance d'image <-> Transfert learning
+            </aside>
 				</section>
 				<section>
 					<h3>Explication du flux de traitement</h3>
@@ -183,10 +250,26 @@
 						<div class="four"><img src="images/flux_04.png" width="50%" class="fragment"/></div>
 						-->
 					</div>
+          <aside class="notes">
+              <b>LOUIS</b><br />
+              Comme l'a expliqué Pierre nous allons analyser le son en utilisant sa représentation sous forme d'image.<br />
+              <br />
+              <b>(+)</b>Ces images sont transformées et arrivent au fil de l'eau. Elles sont ajoutées à une sorte de ruban visuel.<br />
+              La section de fin de ce ruban est analysé en permanence pour rechercher nos motifs visuels qui correspondent au "Euhh" (et autres patterns classifiés). L'analyse est sur un motif suffisamment large pour prendre un "euhh" long sinon j'aurai des alertes à chaque fois que je dis cheveu ou pneu ou...<br />
+              Cette analyse est donc faite sur une sort de fenêtre glissante sur notre ruban, avec une fenêtre de la même taille que le motif de notre modèle (même si on peut "tricher")<br />
+              <br />
+              <b>(+)</b> Et donc si le "motif" "euhh" est détecté alors je peux déclencher mon affichage du Euhh.<br />
+              <br />
+              [Suite: "et nous allons justement voir comment nous affichons dans nos slides le euhh une fois qu'il a été repéré"]
+          </aside>
 				</section>
 				<!-- -->
 				<section>
 					<h2>Du “euhh” entendu à 🐮, c'est 🤪 time</h2>
+          <aside class="notes">
+              <b>LOUIS</b><br />
+              Et nous allons justement voir comment l'on affiche dans notre (webcam/browser) le euhh une fois qu'il a été repéré.
+          </aside>
 				</section>
 				<section>
 					<section>
@@ -285,10 +368,25 @@
 					<section>
 						<h3>Principes</h3>
 						<img src="images/schema-obs.png"/>
+            <aside class="notes">
+                <b>LOUIS</b><br />
+                Il s'agit là d'une version que nous avons fait pour le mode "remote". Cette version interagit avec notre webcam. Nous avons ici 2 entrée à mixer:<br />
+                - Un programme qui écoute le flux audio et qui avec le modèle que nous avons entraîné détecte si le motif sonore "Euhh" est présent. Si il est présent il affiche Euhh.<br />
+                - Et notre webcat qui renvoi notre flux vidéo<br />
+                <br />
+                Nous utilisons ensuite un autre programme pour assembler ces 2 flux:<br />
+                - Capturer le visuel du programme qui affiche Euhh<br />
+                - Le superposer à notre flux vidéo mais en ne prenant que le modif Euhh (filtre chromatique)<br />
+                - Et transformer tout cela en une sortie vidéo sous la forme d'une caméra virtuelle qui peut être utilisée en tant que webcam.
+            </aside>
 					</section>
 					<section>
 						<h3>Implémentation</h3>
 						<img src="images/implementation-obs.png" />
+            <aside class="notes">
+                (P5 JS > ML5 JS > TensorFlow)<br />
+                (filtre chroma key ou incrustation par chrominance dans OBS)
+            </aside>
 					</section>
 				</section>
 				<section>
@@ -300,12 +398,27 @@
 				<!-- -->
 				<section>
 					<h2>🙏 ❓</h2>
+          <aside class="notes">
+              <b>LOUIS</b><br />
+              merci à vous, nous espérons que cela vous a appris des choses et que cela vous a donné envie de tester.<br />
+              <br />
+              <b>PIERRE</b><br />
+              En cadeau sachez qu'une fois le principe compris, il est très facile de faire soit même ce type de personnalisation, à partir de son mais aussi de vidéo...<br />
+              Piloter par exemple les slides avec la voix...<br />
+              Ou plus convivial faire un jeu de ni oui ni non.<br />
+              <br />
+              <b>Pierre ou Louis</b><br />
+              Nous partagerons nos slides avec des liens dont les repos github de ce que nous avons fait.<br />
+              Et nous sonnes a votre disposition pour répondre à vos questions.<br />
+              Je sais que c'est la fin de la journée? Mais CVP pensez à nous faitre un retour via les outils dispo<br />
+              Merci à vous.
+          </aside>
 				</section>
 				<section>
 					<h3>Références</h3>
 					<ul>
 						<li>Exemple classification audio avec keras </br> https://www.tensorflow.org/tutorials/audio/simple_audio</li>
-						<li>Repos du code </br> TODO </li>
+						<li>Repos du code </br> https://github.com/louiznk/devfest-nantes-euuhh </li>
 						<li>Backpropagation </br> https://www.youtube.com/watch?v=Ilg3gGewQ5U</li>
 						<li>TeachableMachine </br> https://teachablemachine.withgoogle.com/</li>
 						<li>OBS / MachineLearning </br> https://thecodingtrain.com/CodingChallenges/157-zoom-annotations.html</li>

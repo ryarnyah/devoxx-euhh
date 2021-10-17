@@ -326,6 +326,14 @@
 													</script>
 												</code>
 											</pre>
+			<aside class="notes">
+				<b>LOUIS</b><br />
+				L'intégration dans revealjs est simple<br />				
+				1 - Nous chargeons les libs tensorflow.js avec la partie wasm pour avoir un backend en wasm ou lieu de webgl parceque c'est fun</br>
+				2 - Nous lançons le chargement et l'initialization du model qui a été préparé avant</br>
+				3 - Ce model va analyser la voix et nous fournir un "recognizer" de motif de son</br>
+				4 - C'est donc avec ce "recognizer" que nous allons pouvoir détecter les "Euuh" et les "Yolos"</br>
+			</aside>
 					</section>
 					<section>
 						<h3>L'ajout du "header" dans revealjs</h3>
@@ -351,6 +359,11 @@
 								</script>
 							</code>
 						</pre>
+			<aside class="notes">
+				<b>LOUIS</b><br />
+				1 - Enfin nous avons un header en haut de la page<br />
+				2, 3 - Que l'on va retrouver à chaque slides car il est en dehors du div utilisé pour les slides
+			</aside>
 					</section>
 				</section>
 				<section>

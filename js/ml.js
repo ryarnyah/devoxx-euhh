@@ -77,10 +77,12 @@ async function init() {
         overlapFactor: OVERLAP_FACTOR // (0.5) probably want between 0.5 and 0.75. More info in README
     });
 
-    // Stop the recognition in 5 seconds.
-    // setTimeout(() => recognizer.stopListening(), 5000);
 }
 
-tf.setBackend('wasm').then(() => init());
-
-//init()
+// Only on slide, not on speaker note
+// (hack) on speaker node url contains parameter "?receiver..."
+if (window.location.toString().indexOf("?receiver") == -1) {
+    alreadyLoaded = 1
+    tf.setBackend('wasm').then(() => init());
+    //init() // default backend
+}

@@ -12,6 +12,12 @@ const MIN_TIME_BEETWEEN_MS = 600;
 const OVERLAP_FACTOR = MIN_TIME_BEETWEEN_MS * 1.0 / SPECTRORAM_TIME_MS;
 const PROBABILITY_THRESHOLD = 0.9;
 
+const MAP_MIN_PROBABILITY_PER_LABELS = {
+    "Euuh": PROBABILITY_THRESHOLD,
+    "Yolo": PROBABILITY_THRESHOLD,
+    "Next": 0.95
+};
+
 async function createModel() {
     const checkpointURL = URL + "model.json"; // model topology
     const metadataURL = URL + "metadata.json"; // model metadata
@@ -46,11 +52,14 @@ async function init() {
     recognizer.listen(result => {
 
         const scores = result.scores; // probability of prediction for each class
-        
-        const index = scores.indexOf(Math.max.apply(Math, scores));
+
+        const maxScore = Math.max.apply(Math, scores);
+        const index = scores.indexOf(maxScore);
         const label = classLabels[index];
 
-        if (lastLabel != label || (last + MIN_TIME_BEETWEEN_MS * 2) < Date.now()) {
+        if ((lastLabel != label || (last + MIN_TIME_BEETWEEN_MS * 2) < Date.now()) &&
+            MAP_MIN_PROBABILITY_PER_LABELS[label] <= maxScore
+           ) {
             if(label === "Euuh") {
                 labelContainer.className = 'show';
                 labelContainer.childNodes[0].innerHTML = "<h1>🐮</h1>";

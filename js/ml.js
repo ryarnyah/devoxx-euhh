@@ -14,9 +14,10 @@ const PROBABILITY_THRESHOLD = 0.91;
 
 const MAP_MIN_PROBABILITY_PER_LABELS = {
     "Euuh": PROBABILITY_THRESHOLD,
-    "Yolo": PROBABILITY_THRESHOLD,
-    "Next": PROBABILITY_THRESHOLD + 0.04,
-    "Back": PROBABILITY_THRESHOLD + 0.04};
+    "Yolo": PROBABILITY_THRESHOLD + 0.08,
+    "Next": PROBABILITY_THRESHOLD + 0.05,
+    "Back": PROBABILITY_THRESHOLD + 0.05
+};
 
 async function createModel() {
     const checkpointURL = URL + "model.json"; // model topology

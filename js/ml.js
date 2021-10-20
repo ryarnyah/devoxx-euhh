@@ -10,13 +10,13 @@ const nbs = [];
 const SPECTRORAM_TIME_MS = 1000;
 const MIN_TIME_BEETWEEN_MS = 600;
 const OVERLAP_FACTOR = MIN_TIME_BEETWEEN_MS * 1.0 / SPECTRORAM_TIME_MS;
-const PROBABILITY_THRESHOLD = 0.9;
+const PROBABILITY_THRESHOLD = 0.91;
 
 const MAP_MIN_PROBABILITY_PER_LABELS = {
     "Euuh": PROBABILITY_THRESHOLD,
     "Yolo": PROBABILITY_THRESHOLD,
-    "Next": PROBABILITY_THRESHOLD
-};
+    "Next": PROBABILITY_THRESHOLD + 0.04,
+    "Back": PROBABILITY_THRESHOLD + 0.04};
 
 async function createModel() {
     const checkpointURL = URL + "model.json"; // model topology
@@ -57,6 +57,8 @@ async function init() {
         const index = scores.indexOf(maxScore);
         const label = classLabels[index];
 
+        console.log(label + ":" + maxScore);
+
         if ((lastLabel != label || (last + MIN_TIME_BEETWEEN_MS * 2) < Date.now()) &&
             MAP_MIN_PROBABILITY_PER_LABELS[label] <= maxScore
            ) {
@@ -68,6 +70,8 @@ async function init() {
                 labelContainer.childNodes[0].innerHTML = "<h1>🤪</h1>";
             } else if (label === "Next") {
                 Reveal.next();
+            } else if (label === "Back") {
+                Reveal.prev();
             }
             nbs[index]++;
             if (labelContainer.className == 'show') {
@@ -77,8 +81,8 @@ async function init() {
             }
             document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
         }
-        last = Date.now();
         lastLabel = label;
+        last = Date.now();
     }, {
         includeSpectrogram: false, // in case listen should return result.spectrogram
         probabilityThreshold: PROBABILITY_THRESHOLD, // (0.75)

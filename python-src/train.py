@@ -30,7 +30,7 @@ EXPECTED_WAVEFORM_LEN = preproc_model.input_shape[-1]
 # Where the Speech Commands v0.02 dataset has been downloaded.
 DATA_ROOT = "final-data"
 
-WORDS = ("_background_noise_", "Euuh", "Yolo", "Next")
+WORDS = ("_background_noise_", "Euuh", "Yolo", "Next", "Back")
 
 def resample_wavs(dir_path, target_sample_rate=44100):
   wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))

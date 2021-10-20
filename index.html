@@ -120,8 +120,8 @@
 						Et bien il y a quelques mois, Pierre et moi parlions des discours et des tics de langage, et du fait que n'ayant plus personne en présentiel nous manquions de feedback.<br />
 						A défaut de trouver une réponse à votre absence, nous nous sommes dit: "Et si nous utilisions un système de reconnaissance vocale pour nous signaler nos tics de langage ?"<br />
 						<b>PIERRE</b><br />
-						Vous imaginez bien que nous avons sauté sur l'idée pour en faire un abstrat, s'amuser, apprendre, prototyper et maintenant partager.<br />
-						C'est pour cela que nous allons vous parler de réseaux de neurones, de la "représentation" du son sous forme d'image et que nous aurons un (ou plusieurs) tics du langage qui viendra jouer les troubles-fêtes dans notre présentation.<br />
+						Vous imaginez bien que nous avons sauté sur l'idée pour en faire un abstract, s'amuser, apprendre, prototyper et maintenant partager.<br />
+						C'est pour cela que nous allons vous parler de réseaux de neurones, de la "représentation" du son sous forme d'images et que nous aurons un (ou plusieurs) tics du langage qui viendra jouer les troubles-fêtes dans notre présentation.<br />
 						Comme c'est plus YOLO, nous utiliserons cette présentation en guise de démo. Nous allons commencé par vous présenter les outils que nous avons utilisé pour faire du machine learning.
 					</aside>
 				</section>
@@ -147,7 +147,7 @@
 						2 approches, celles du "fainéant" et celle du fan d'emacs. De mon côté je suis pas trop clic-bouton et emacs est mon ami.<br />
 						-> Keras & Tensorflow<br />
 						<b>LOUIS</b><br />
-						Et moi ma librairie c'est Teachable Machine, c'est tout simple d'usage et cela marche du premier coup. En dessous? C'est encore du TensorFlow.<br />
+						Et moi mon éditeur c'est Teachable Machine, c'est tout simple d'usage et cela marche du premier coup. En dessous? C'est encore du TensorFlow.<br />
 						Et tensorflow c'est quoi? Un librairie de ML utilisant des réseaux de neurones.
 					</aside>
 				</section>
@@ -170,10 +170,10 @@
 						Chaque neurone va être spécialisé<br />
 						Il va recevoir une ou plusieures informations en entrée et va renvoyer une autre information ou pas d'information du tout.<br />
 						<br />
-						Dans notre exemple de la banane, une première couche de neurone spécialisé dans la couleur reçoit l'image de la banane, seul le neuronne jaune transmet un message aux neuronnes suivants.<br />
-						Puis les neuronnes de forme reçoivent ce même message avec seulement 2 neurones renvoient un autre message au système de classification.<br />
+						Dans notre exemple de la banane, une première couche (ou layer) de neurone est spécialisée dans la couleur reçoit l'image de la banane, seul le neurone jaune transmet un message aux neurones suivants.<br />
+						Puis les neurones de forme reçoivent ce même message et seulement 2 neurones renvoient un autre message au système de classification.<br />
 						<br />
-						Le système de classification va à partir des messages reçu dire que cet objet de couleur jaune ayant la forme d'un demi-cercle et d'un triangle est une banane.
+						Le système de classification va à partir des messages reçus dire que cet objet de couleur jaune ayant la forme d'un demi-cercle et d'un triangle est une banane.
 					</aside>
 				</section>
 				<section data-timing="120">
@@ -217,7 +217,7 @@
 					<h2>La voix dans ce modèle</h2>
 					<aside class="notes">
 						<b>PIERRE</b><br />
-						Et maintenant nous allons vous présenter la representation de la voix.
+						Et maintenant nous allons vous expliquer comment la voix est representer dans notre modèle.
 					</aside>
 				</section>
 				<section data-timing="120">
@@ -280,7 +280,7 @@
 				</section>
 				<section>
 					<section data-timing="20">
-						<h3>Une présentation avec Tensorflow</h3>
+						<h3>Dans cette présentation</h3>
 						<ul>
 							<li>revealjs pour les slides au format web</li>
 							<li>tensorflow.js pour utiliser le modèle généré</li>
@@ -338,11 +338,11 @@
 							1 - Nous chargeons les libs tensorflow.js avec la partie wasm pour avoir un backend en wasm ou lieu de webgl parceque c'est fun</br>
 							2 - Nous lançons le chargement et l'initialization du model qui a été préparé avant</br>
 							3 - Ce model va analyser la voix et nous fournir un "recognizer" de motif de son</br>
-							4 - C'est donc avec ce "recognizer" que nous allons pouvoir détecter les "Euuh" et les "Yolos"</br>
+							4 - C'est donc avec ce "recognizer" que nous allons pouvoir détecter les "Euuh", les "Yolos" et tous les autres motifs pour lesquels le model a été entrainé</br>
 						</aside>
 					</section>
 					<section data-timing="40">
-						<h3>L'ajout du "header" dans revealjs</h3>
+						<h3>Un "header" pour afficher les tics détectés</h3>
 						<pre>
 							<code data-line-numbers="4-6|10-12|13-16">
 								<script type="text/template">
@@ -432,7 +432,6 @@
 						<b>PIERRE</b><br />
 						En cadeau sachez qu'une fois le principe compris, il est très facile de faire soit même ce type de personnalisation, à partir de son mais aussi de vidéo...<br />
 						Piloter par exemple les slides avec la voix...<br />
-						Ou plus convivial faire un jeu de ni oui ni non.<br />
 						<br />
 						Nos slides et la partie tensorflow sont dans le repos github publique.<br />
 						Nous sommes a votre disposition pour répondre à vos questions.<br />
@@ -450,6 +449,10 @@
 						<li>TeachableMachine </br> https://teachablemachine.withgoogle.com/</li>
 						<li>OBS / MachineLearning </br> https://thecodingtrain.com/CodingChallenges/157-zoom-annotations.html</li>
 					</ul>
+					<aside class="notes">
+						Questions ? <br />
+						Mur de feedback
+					</aside>
 				</section>
 			</div>
 		</div>

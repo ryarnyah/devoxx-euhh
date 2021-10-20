@@ -15,7 +15,7 @@ const PROBABILITY_THRESHOLD = 0.9;
 const MAP_MIN_PROBABILITY_PER_LABELS = {
     "Euuh": PROBABILITY_THRESHOLD,
     "Yolo": PROBABILITY_THRESHOLD,
-    "Next": 0.95
+    "Next": PROBABILITY_THRESHOLD
 };
 
 async function createModel() {

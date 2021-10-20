@@ -492,6 +492,15 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealHighlight, RevealNotes ]
 			});
+
+			Reveal.configure({
+					keyboard: {
+						// up key (for remote control)
+						38: 'prev',
+						// down key (for remote control)
+						40: 'next'
+					}
+				});
 		</script>
 
 		<!-- Import @tensorflow/tfjs or @tensorflow/tfjs-core -->

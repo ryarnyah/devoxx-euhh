@@ -33,51 +33,72 @@ DATA_ROOT = "final-data"
 WORDS = ("_background_noise_", "Euuh", "Yolo", "Next", "Back")
 
 def resample_wavs(dir_path, target_sample_rate=44100):
-  wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
+  print('resample {} with {}'.format(dir_path, target_sample_rate))
+  wav_paths = glob.glob(os.path.join(dir_path, "*-split*.wav"))
   resampled_suffix = "_%shz.wav" % target_sample_rate
-  for i, wav_path in tqdm.tqdm(enumerate(wav_paths)):
-    if wav_path.endswith(resampled_suffix) or 'split' not in wav_path:
+  for _, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+    if wav_path.endswith(resampled_suffix):
       continue
-    xs, sample_rate = librosa.load(wav_path, None)
-    #xs = xs.astype(np.float32)
-    xs = librosa.resample(xs, sample_rate, TARGET_SAMPLE_RATE)#.astype(np.int16)
+    xs, sample_rate = librosa.load(wav_path, sr = None)
+    xs = librosa.resample(xs, orig_sr = sample_rate, target_sr = TARGET_SAMPLE_RATE)
     resampled_path = os.path.splitext(wav_path)[0] + resampled_suffix
     sf.write(resampled_path, xs, target_sample_rate)
 
 
-def add_noise(dir_path):
-  wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
-  for i, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+def add_noise(dir_path, noise = 0.009):
+  print('add noise {} with {}'.format(dir_path, noise))
+  wav_paths = glob.glob(os.path.join(dir_path, "*-split*.wav"))
+  for _, wav_path in tqdm.tqdm(enumerate(wav_paths)):
     if 'noise' in wav_path:
       continue
     if 'data_aug' in wav_path or 'hz.wav' in wav_path:
       continue
-    wav, rate = librosa.load(wav_path, None)
-    wav_n = wav + 0.009 * np.random.normal(0, 1, len(wav))
+    wav, rate = librosa.load(wav_path, sr = None)
+    wav_n = wav + noise * np.random.normal(0, 1, len(wav))
     sf.write(wav_path + '-data_aug_noise.wav', wav_n, rate)
 
 
 def timeshift(dir_path):
-  wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
-  for i, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+  print('timeshift {}'.format(dir_path))
+  wav_paths = glob.glob(os.path.join(dir_path, "*-split*.wav"))
+  for _, wav_path in tqdm.tqdm(enumerate(wav_paths)):
     if 'timeshift' in wav_path:
       continue
     if 'data_aug' in wav_path or 'hz.wav' in wav_path:
       continue
-    wav, rate = librosa.load(wav_path, None)
+    wav, rate = librosa.load(wav_path, sr = None)
     wav_n = np.roll(wav, int(rate / 10))
     sf.write(wav_path + '-data_aug-timeshift.wav', wav_n, rate)
 
 
 def split_to_time(dir_path):
+  print('split {}'.format(dir_path))
   wav_paths = glob.glob(os.path.join(dir_path, "*.wav"))
-  for wav in wav_paths:
-    if 'split' in wav:
+  for _, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+    if 'split' in wav_path:
       continue
-    data, rate = librosa.load(wav, None)
+    if 'data_aug' in wav_path or 'hz.wav' in wav_path:
+      continue
+    data, rate = librosa.load(wav_path, sr = None)
     batches = int(len(data) / (TARGET_SAMPLE_TIME * rate))
     for i in range(batches):
-      sf.write(wav + '-split' + '-' + str(i) + '.wav', data[i * rate: (i+1) * rate], rate)
+      sf.write(wav_path + '-split' + '-' + str(i) + '.wav', data[i * rate: (i+1) * rate], rate)
+
+
+def reverb(dir_path, delay_ms = 100, decay = 0.4):
+  print('add reverb {} with {} delay and {} decay'.format(dir_path, delay_ms, decay))
+  wav_paths = glob.glob(os.path.join(dir_path, "*-split*.wav"))
+  for _, wav_path in tqdm.tqdm(enumerate(wav_paths)):
+    if 'reverb' in wav_path:
+      continue
+    if 'data_aug' in wav_path or 'hz.wav' in wav_path:
+      continue
+    wav, rate = librosa.load(wav_path, sr = None)
+    delay_samples = int(delay_ms * rate / 1000.0)
+    wav_rolled = np.roll(wav, delay_samples)
+    wav_v = (wav + wav_rolled * decay) / 2
+    wav_v[:delay_samples] = wav[:delay_samples]
+    sf.write(wav_path + '-data_aug-reverb.wav', wav_v, rate)
 
 
 @tf.function
@@ -125,8 +146,9 @@ for word in WORDS:
   # data augmentation
   print('data augmentation for %s' % word)
   split_to_time(word_dir)
-  add_noise(word_dir)
+  add_noise(word_dir, 0.001)
   timeshift(word_dir)
+  reverb(word_dir)
   resample_wavs(word_dir, target_sample_rate=TARGET_SAMPLE_RATE)
 
 input_wav_paths_and_labels = []

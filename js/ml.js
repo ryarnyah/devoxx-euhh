@@ -14,7 +14,7 @@ const PROBABILITY_THRESHOLD = 0.91;
 
 const MAP_MIN_PROBABILITY_PER_LABELS = {
     "Euuh": PROBABILITY_THRESHOLD,
-    "Yolo": PROBABILITY_THRESHOLD + 0.08,
+    "Yolo": PROBABILITY_THRESHOLD + 0.05,
     "Next": PROBABILITY_THRESHOLD + 0.05,
     "Back": PROBABILITY_THRESHOLD + 0.05
 };
@@ -43,7 +43,12 @@ async function init() {
         labelContainer.appendChild(document.createElement("div"));
         nbs[i] = 0;
     }
-    document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
+
+    document.getElementsByName("score-container-final").forEach(element => {
+        element.innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
+    });
+     
+    //document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
 
     // listen() takes two arguments:
     // 1. A callback function that is invoked anytime a word is recognized.
@@ -58,7 +63,7 @@ async function init() {
         const index = scores.indexOf(maxScore);
         const label = classLabels[index];
 
-        console.log(label + ":" + maxScore);
+        //console.log(label + ":" + maxScore);
 
         if ((lastLabel != label || (last + MIN_TIME_BEETWEEN_MS * 2) < Date.now()) &&
             MAP_MIN_PROBABILITY_PER_LABELS[label] <= maxScore
@@ -80,7 +85,9 @@ async function init() {
                     labelContainer.className = 'hide';
                 }, MIN_TIME_BEETWEEN_MS);
             }
-            document.getElementById("score-container-final").innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
+            document.getElementsByName("score-container-final").forEach(element => {
+                element.innerHTML = "<h1>🐮 " + nbs[classLabels.indexOf("Euuh")] + " 🤪 " + nbs[classLabels.indexOf("Yolo")] + "</h1>";
+            });
         }
         lastLabel = label;
         last = Date.now();

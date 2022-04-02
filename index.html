@@ -293,7 +293,6 @@
 					</aside>
 				</section><section data-timing="30">
 					<h2>ML ⊆ Artificial Intelligence</h2>
-					<!-- TODO image -->
 					<img src="images/ai.png" />
 					<aside class="notes">
 						<b>LOUIS</b><br />
@@ -305,7 +304,6 @@
 				</section>
 				</section>
 				<section data-timing="4" data-autoslide="4000">
-					<!-- TODO image -->
 					<img src="images/cncf-landscape.png" />
 					<aside class="notes">
 						<b>PIERRE</b><br />
@@ -344,12 +342,12 @@
 					<h2>Du “euhh” entendu à 🐮, c'est 🤪 time</h2>
 					<aside class="notes">
 						<b>LOUIS</b><br />
-						Et nous allons justement voir comment l'on affiche dans notre (webcam/browser) le euhh une fois qu'il a été repéré.
+						Et nous allons justement voir comment l'on affiche dans notre browser le euhh une fois qu'il a été repéré.
 					</aside>
 				</section>
 				<section>
 					<section data-timing="20">
-						<h3>Dans cette présentation</h3>
+						<h3>Intégration dans le browser</h3>
 						<ul>
 							<li>revealjs pour les slides au format web</li>
 							<li>tensorflow.js pour utiliser le modèle généré</li>
@@ -360,7 +358,7 @@
 						</aside>
 					</section>
 					<section data-timing="60">
-						<h3>L'intégration de Tensorflow.js</h3>
+						<h3>Mise en place de Tensorflow.js</h3>
 						<pre>
 							<code data-line-numbers="35|17-18|2-14|19-30">
 								<script type="text/template">
@@ -441,59 +439,65 @@
 						</aside>
 					</section>
 				</section>
-				<section>
-					<section data-timing="30">
-						<h3>La version pour le remote</h3>
-						<table>
-							<tbody>
-								<tr>
-									<td>
-										<img src="images/pierre_euhh.gif"/>
-									</td>
-									<td>
-										<img src="images/louis_euhh.gif"/>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<aside class="notes">
-							<b>PIERRE</b><br />
-						</aside>
-					</section>
-					<section data-timing="60">
-						<h3>Comment ça marche ?</h3>
-						<img src="images/implementation-obs.png" />
-						<aside class="notes">
-							<b>PIERRE</b><br />
-							Il s'agit là d'une version que nous avons fait pour le mode "remote". Cette version interagit avec notre webcam. Nous
-							avons ici 2 entrée à mixer:<br />
-							- Un programme qui écoute le flux audio et qui avec le modèle que nous avons entraîné détecte si le motif sonore "Euhh"
-							est présent. Si il est présent il affiche Euhh.<br />
-							- Et notre webcat qui renvoi notre flux vidéo<br />
-							<br />
-							Nous utilisons ensuite un autre programme pour assembler ces 2 flux:<br />
-							- Capturer le visuel du programme qui affiche Euhh<br />
-							- Le superposer à notre flux vidéo mais en ne prenant que le modif Euhh (filtre chromatique)<br />
-							- Et transformer tout cela en une sortie vidéo sous la forme d'une caméra virtuelle qui peut être utilisée en tant que
-							webcam.
-							<br />
-							(P5 JS > ML5 JS > TensorFlow)<br />
-							(filtre chroma key ou incrustation par chrominance dans OBS)
-						</aside>
-					</section>
-				</section>
+				<!-- -->
 				<section data-timing="20">
 					<h3>Durant de cette présentation</h3>
-					<div id="score-container-final"></div>
-					<br/>
+					<div name="score-container-final"></div>
+					<br />
 					Aucun animal et aucun émoji n'ont été maltraités 💚
 					<aside class="notes">
 						<b>PIERRE</b><br />
 					</aside>
 				</section>
 				<!-- -->
+				<section data-timing="30" autoPlayMedia="true">
+					<h3>Et pour bien finir, votre demo</h3>
+					<a href="https://teachablemachine.withgoogle.com/" target="_blank" style="text-align:center">
+						<video width="640" height="480" autoplay>
+							<source src="https://teachablemachine.withgoogle.com/assets/prediction.mp4" type="video/mp4">
+						</video>
+						<br />
+						Teachable Machine
+					</a>
+					<aside class="notes">
+						
+					</aside>
+				</section>
+
+				<section data-timing="30">
+					<h3>Un autre exemple d'usage : une web cam virtuel avec des Euhhhh</h3>
+					<table>
+						<tbody>
+							<tr>
+								<td>
+									<img src="images/pierre_euhh.gif" />
+								</td>
+								<td>
+									<img src="images/louis_euhh.gif" />
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<aside class="notes">
+						<b>PIERRE</b><br />
+						Cela fait toujours son effet en réunion à distance
+					</aside>
+				</section>
+
+				<section data-timing="30">
+					<h3>Tips www.tensorflow.org/hub/</h3>
+					<img src="images/tsfhub.jpg" />
+					<aside class="notes">
+						<b>Louis</b><br />
+						Il y a plein de de ressources, de modèles, de choses à voir, ce n'est pas simple de s'y retrouver mais tensorflow hub for the win...
+					</aside>
+				</section>
+				<!-- -->
 				<section data-timing="30">
 					<h2>🙏 ❓</h2>
+					<br />
+					<br />
+					<div name="score-container-final" style="font-size: 0.6em; align-content: center;"/>
 					<aside class="notes">
 						<b>LOUIS</b><br />
 						Merci à vous, nous espérons que cela vous a appris des choses et que cela vous a donné envie de tester.<br />
@@ -538,8 +542,8 @@
 				hash: true,
 				autoPlayMedia: true,
 
-				width: 1400,
-				height: 800,
+				width: 1920,
+				height: 1080,
 
 				// Factor of the display size that should remain empty around
 				// the content

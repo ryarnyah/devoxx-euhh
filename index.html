@@ -207,11 +207,12 @@
 					<aside class="notes">
 						<b>PIERRE</b><br />
 						1. Présentation schema<br />
+            Ligne pixel par ligne de pixel <=> applatissement
 						<p>a. Representation classique d'un réseau neuronal</p>
 						<p>b. chaque couche (layer) composée de N neurones reliés entre eux</p>
 						2. Entrainement & Backpropagation<br />
 						<br />
-						<b>[suite PIERRE] -></b>La voix dans ce modèle
+						<b>[suite PIERRE] -></b>L'augmentation de données
 					</aside>
 				</section>
         <section data-timing="60">
@@ -219,6 +220,12 @@
             <img src="images/6-augment.png" style="max-width: 40%" />
             <aside class="notes">
                 <b>PIERRE</b><br />
+                <br />
+                Ref à la boite.
+                <br />
+                Augmentation de données sur image & son & vidéo.
+						    <br />
+						    <b>[suite PIERRE] -></b>La voix dans ce modèle
             </aside>
         </section>
 				<!-- -->
@@ -299,7 +306,6 @@
 						Et de la même manière le ML n'est qu'une approche parmi d'autres dans le vaste univers de l'Intelligence Artificiel.
 						Nous ne faisons qu'effleurer un vaste sujet.
 						<br />
-						<b>[suite LOUIS] avec "coupure" PIERRE -></b>Mais revenons sur notre cas particulier et parons du flux de traitement de la voix
 					</aside>
 				</section>
 				</section>
@@ -310,6 +316,7 @@
 						Un moment j'ai eu peur que tu nous présente le landscape de CNCF....
 						<br />
 						<b>[suite LOUIS] -></b>Vous l'avez échappé belle... Mais revenons sur notre cas particulier et parlons du flux de traitement de la voix
+						<b>[suite LOUIS] avec "coupure" PIERRE -></b>Mais revenons sur notre cas particulier et parlons du flux de traitement de la voix
 					</aside>
 				</section>
 
@@ -345,7 +352,7 @@
 						Et nous allons justement voir comment l'on affiche dans notre browser le euhh une fois qu'il a été repéré.
 					</aside>
 				</section>
-				<section>
+				<section data-timing="120">
 					<section data-timing="20">
 						<h3>Intégration dans le browser</h3>
 						<ul>
@@ -392,7 +399,7 @@
 								//...
 							}
 						}
-						
+b						
 					}
 					
 					tf.setBackend('wasm').then(() => init());
@@ -435,7 +442,9 @@
 						<aside class="notes">
 							<b>LOUIS</b><br />
 							1 - Enfin nous avons un header en haut de la page<br />
-							2, 3 - Que l'on va retrouver à chaque slides car il est en dehors du div utilisé pour les slides
+							2, 3 - Que l'on va retrouver à chaque slides car il est en dehors du div utilisé pour les slides<br />
+              <b>PIERRE</b><br />
+              Et si on voyait un peu le resultat. (qu'on s'est bien amélioré en JS et sur nos Euhh)
 						</aside>
 					</section>
 				</section>
@@ -446,7 +455,8 @@
 					<br />
 					Aucun animal et aucun émoji n'ont été maltraités 💚
 					<aside class="notes">
-						<b>PIERRE</b><br />
+						  <b>PIERRE</b><br />
+              Et pour bien finir, la démo.
 					</aside>
 				</section>
 				<!-- -->
@@ -479,8 +489,11 @@
 						</tbody>
 					</table>
 					<aside class="notes">
-						<b>PIERRE</b><br />
-						Cela fait toujours son effet en réunion à distance
+						  <b>PIERRE</b><br />
+						  Cela fait toujours son effet en réunion à distance
+              Sachez qu'une fois le principe compris, il est très facile de faire soit même ce type de personnalisation, à partir de son mais aussi de vidéo...<br />
+						  Piloter par exemple les slides avec la voix...<br />
+              La limitation ce n'est que votre imagination.
 					</aside>
 				</section>
 
@@ -503,8 +516,6 @@
 						Merci à vous, nous espérons que cela vous a appris des choses et que cela vous a donné envie de tester.<br />
 						<br />
 						<b>PIERRE</b><br />
-						En cadeau sachez qu'une fois le principe compris, il est très facile de faire soit même ce type de personnalisation, à partir de son mais aussi de vidéo...<br />
-						Piloter par exemple les slides avec la voix...<br />
 						<br />
 						Nos slides et la partie tensorflow sont dans le repos github publique.<br />
 						Nous sommes a votre disposition pour répondre à vos questions.<br />

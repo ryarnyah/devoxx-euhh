@@ -148,7 +148,7 @@ for word in WORDS:
   split_to_time(word_dir)
   add_noise(word_dir, 0.001)
   timeshift(word_dir)
-  reverb(word_dir)
+  #reverb(word_dir)
   resample_wavs(word_dir, target_sample_rate=TARGET_SAMPLE_RATE)
 
 input_wav_paths_and_labels = []

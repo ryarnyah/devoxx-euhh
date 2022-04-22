@@ -179,7 +179,7 @@
 					</aside>
 				</section>
 				<section data-timing="120">
-					<h3>Principes réseaux de neurones</h3>
+					<h3>THE neurone</h3>
 					<table>
 						<tbody>
 							<tr>
@@ -309,16 +309,6 @@
 					</aside>
 				</section>
 				</section>
-				<section data-timing="4" data-autoslide="4000">
-					<img src="images/cncf-landscape.png" />
-					<aside class="notes">
-						<b>PIERRE</b><br />
-						Un moment j'ai eu peur que tu nous présente le landscape de CNCF....
-						<br />
-						<b>[suite LOUIS] -></b>Vous l'avez échappé belle... Mais revenons sur notre cas particulier et parlons du flux de traitement de la voix
-						<b>[suite LOUIS] avec "coupure" PIERRE -></b>Mais revenons sur notre cas particulier et parlons du flux de traitement de la voix
-					</aside>
-				</section>
 
 				<!-- -->
 				<section data-timing="120">
@@ -358,7 +348,7 @@
 						<ul>
 							<li>revealjs pour les slides au format web</li>
 							<li>tensorflow.js pour utiliser le modèle généré</li>
-							<li>et un peu de html et javascript pour lié cela</li>
+							<li>et un peu de html et javascript pour lier cela</li>
 						</ul>
 						<aside class="notes">
 							<b>LOUIS</b><br />
@@ -464,7 +454,7 @@ b
 					<h3>Et pour bien finir, votre demo</h3>
 					<a href="https://teachablemachine.withgoogle.com/" target="_blank" style="text-align:center">
 						<video width="640" height="480" autoplay>
-							<source src="https://teachablemachine.withgoogle.com/assets/prediction.mp4" type="video/mp4">
+							<source src="images/prediction.mp4" type="video/mp4">
 						</video>
 						<br />
 						Teachable Machine
@@ -569,8 +559,8 @@ b
 				slideNumber: 'c/t',
 				showSlideNumber: 'speaker',
 
-				// 17:30 max sur les slides => 2:00 sur les questions (sur dernier slides) => 19:30
-				totalTime: 1170,
+				// 25 min max sur les slides => 5:00 sur les questions (sur dernier slides) => 30 min
+				totalTime: 1500,
 				
 				// pdf all fragments in the same page
 				pdfSeparateFragments: false,
@@ -591,12 +581,9 @@ b
 		</script>
 
 		<!-- Import @tensorflow/tfjs or @tensorflow/tfjs-core -->
-		<script src="dist/tfjs.js"></script>
-		<script src="dist/speech-commands.js"></script>
-		
-		<!-- Adds the WAsm backend to the global backend registry -->
+		<script src="dist/tf.min.js"></script>
 		<script src="dist/tf-backend-wasm.js"></script>
-		
+		<script src="dist/speech-commands.min.js"></script>
 		<script src="js/ml.js"></script>
 	</body>
 </html>
